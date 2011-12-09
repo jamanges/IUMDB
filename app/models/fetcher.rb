@@ -27,5 +27,29 @@ class Fetcher
   def movie_description
     @imdb_document.xpath("//meta[@name='description']").attr('content').text
   end
+  
+  def movie_directors
+    directors = @imdb_document.xpath("//a[@itemprop='director']")
+  end
+  
+  def movie_actors
+    actors = @imdb_document.xpath("//a[@itemprop='actors']")
+  end
+  
+  def movie_genres
+    @imdb_document.xpath("//div[@class='infobar']/a")
+  end
+  
+  def movie_release_year
+    @imdb_document.xpath("//h1[@class='header']/span/a").text
+  end
 
+  def movie_title
+    @imdb_document.xpath("//h1[@class='header']").first.children.first.text.strip
+  end
+  
+  def movie_runtime
+    @imdb_document.xpath("//div[@class='txt-block']/time[@itemprop='duration']").text.to_i
+    
+  end
 end

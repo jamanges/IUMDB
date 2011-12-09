@@ -35,6 +35,51 @@ class FetcherTest < ActiveSupport::TestCase
     end
   end
   
+  should 'get the movie directors' do
+    VCR.use_cassette('Die Hard Profile') do
+      @fetcher.get_imdb_profile
+      assert_kind_of(Nokogiri::XML::NodeSet, @fetcher.movie_directors)
+      assert_equal 'John McTiernan', @fetcher.movie_directors.first.text
+    end
+  end
   
+  should 'get the movie actors' do
+    VCR.use_cassette('Die Hard Profile') do
+      @fetcher.get_imdb_profile
+      assert_kind_of(Nokogiri::XML::NodeSet, @fetcher.movie_actors)
+      assert_equal 3, @fetcher.movie_actors.size
+      assert_equal 'Bruce Willis', @fetcher.movie_actors.first.text
+    end
+  end
+  
+  should 'get the genres' do
+    VCR.use_cassette('Die Hard Profile') do
+      @fetcher.get_imdb_profile
+      assert_kind_of(Nokogiri::XML::NodeSet, @fetcher.movie_genres)
+      assert_equal 2, @fetcher.movie_genres.size
+      assert_equal 'Action', @fetcher.movie_genres.first.text
+    end
+  end
+  
+  should 'get the release year' do
+    VCR.use_cassette('Die Hard Profile') do
+      @fetcher.get_imdb_profile
+      assert_equal '1988', @fetcher.movie_release_year
+    end
+  end
+  
+  should 'get the movie title' do
+    VCR.use_cassette('Die Hard Profile') do
+      @fetcher.get_imdb_profile
+      assert_equal 'Die Hard', @fetcher.movie_title
+    end
+  end
+  
+  should 'get the movie runtime in minutes' do
+    VCR.use_cassette('Die Hard Profile') do
+      @fetcher.get_imdb_profile
+      assert_equal 131, @fetcher.movie_runtime
+    end
+  end
   
 end
