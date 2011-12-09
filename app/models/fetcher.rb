@@ -29,11 +29,11 @@ class Fetcher
   end
   
   def movie_directors
-    directors = @imdb_document.xpath("//a[@itemprop='director']")
+    @imdb_document.xpath("//a[@itemprop='director']")
   end
   
   def movie_actors
-    actors = @imdb_document.xpath("//a[@itemprop='actors']")
+    @imdb_document.xpath("//a[@itemprop='actors']")
   end
   
   def movie_genres
@@ -50,6 +50,5 @@ class Fetcher
   
   def movie_runtime
     @imdb_document.xpath("//div[@class='txt-block']/time[@itemprop='duration']").text.to_i
-    
   end
 end
